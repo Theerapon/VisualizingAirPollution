@@ -12,7 +12,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "TOWNSSURVEY_POLY")
-data class Townssurvey_poly (
+data class Townssurvey_Poly (
 
     @Id
     @Column(name = "ID") var id: Int,

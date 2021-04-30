@@ -19,18 +19,18 @@ data class AirPollutionPM25 (
     @Column(name = "ID") var id: String? = null,
     @Column(name = "country") var country: String? = null,
     @Column(name = "city") var city : String? = null,
-    @Column(name = "Year") var Year : String? = null,
+    @Column(name = "Year") var year : String? = null,
     @Column(name = "pm25") var pm25 : Double? = null,
     @Column(name = "latitude") var latitude : Double? = null,
     @Column(name = "longitude") var longitude : Double? = null,
     @Column(name = "population") var population : Double? = null,
     @Column(name = "wbinc16_text") var wbinc16_text : String? = null,
-    @Column(name = "Region") var Region : String? = null,
+    @Column(name = "Region") var region : String? = null,
     @Column(name = "conc_pm25") var conc_pm25 : String? = null,
     @Column(name = "color_pm25") var color_pm25 : String? = null,
     @Column(name = "Geom")
     @JsonSerialize(using = GeometrySerializer::class)
     @JsonDeserialize(contentUsing = GeometryDeserializer::class)
-    var Geom: Geometry? = null
+    var geom: Geometry? = null
 
 )
