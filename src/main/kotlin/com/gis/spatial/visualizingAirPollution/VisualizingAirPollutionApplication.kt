@@ -8,17 +8,19 @@ import org.springframework.context.annotation.Bean
 import org.springframework.web.client.RestTemplate
 
 @SpringBootApplication
-class VisualizingAirPollutionApplication
+class VisualizingAirPollutionApplication{
+
+	@Bean
+	fun restTemplate(builder: RestTemplateBuilder): RestTemplate? {
+		// Do any additional configuration here
+		return builder.build()
+	}
+}
 
 fun main(args: Array<String>) {
 	runApplication<VisualizingAirPollutionApplication>(*args)
 }
 
-@Bean
-fun restTemplate(builder: RestTemplateBuilder): RestTemplate? {
-	// Do any additional configuration here
-	return builder.build()
-}
 
 
 

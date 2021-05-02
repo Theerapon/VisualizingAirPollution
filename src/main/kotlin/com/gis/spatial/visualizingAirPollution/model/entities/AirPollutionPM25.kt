@@ -12,11 +12,11 @@ import javax.persistence.Table
 
 
 @Entity
-@Table(name = "AirPollutionPM25")
+@Table(name = "AIRPOLLUTIONPM25")
 data class AirPollutionPM25 (
 
     @Id
-    @Column(name = "ID") var id: String? = null,
+    @Column(name = "ID") var id: Int? = null,
     @Column(name = "country") var country: String? = null,
     @Column(name = "city") var city : String? = null,
     @Column(name = "Year") var year : String? = null,

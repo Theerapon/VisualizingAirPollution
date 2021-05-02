@@ -12,11 +12,11 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "TOWNSSURVEY_POLY")
-data class Townssurvey_Poly (
+data class TownssurveyPoly (
 
     @Id
-    @Column(name = "ID") var id: Int,
-    @Column(name = "TOWN") var town: String,
+    @Column(name = "ID") var id: Int? = null,
+    @Column(name = "TOWN") var town: String? = null,
     @Column(name = "TOWN_ID") var town_id: Long? = null,
     @Column(name = "POP1980") var pop1980: Long? = null,
     @Column(name = "POP1990") var pop1990: Long? = null,

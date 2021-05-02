@@ -23,6 +23,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("com.bedatadriven:jackson-datatype-jts:2.4")
+	implementation("org.apache.poi:poi-ooxml:4.1.2")
+	implementation("org.hibernate:hibernate-core")
+	implementation("org.hibernate:hibernate-spatial:5.2.5.Final")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

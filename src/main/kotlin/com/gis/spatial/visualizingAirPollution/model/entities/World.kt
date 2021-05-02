@@ -11,7 +11,7 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "world")
+@Table(name = "WORLD")
 data class World (
 
     @Id
