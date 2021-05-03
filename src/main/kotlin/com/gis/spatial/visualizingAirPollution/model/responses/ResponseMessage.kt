@@ -1,5 +1,8 @@
 package com.gis.spatial.visualizingAirPollution.model.responses
 
-class ResponseMessage (private val messageParam: String){
-    val message = messageParam.split(" ")[0]
+class ResponseMessage (private val message: String){
+
+    init {
+        message.split(" ")[0]
+    }
 }

@@ -1,8 +1,10 @@
 package com.gis.spatial.visualizingAirPollution.model.responses
 
-class PopulationResponse (private val countryParam: String, private val yearParam: String, private val levelParam: String, private val populationParam: Double){
-    val country = countryParam.split(" ")[0]
-    val year = yearParam.split(" ")[0]
-    val level = levelParam.split(" ")[0]
-    val population = populationParam
+class PopulationResponse (private val country: String, private val year: String, private val level: String, private val populationParam: Double){
+
+    init {
+        country.split(" ")[0]
+        year.split(" ")[0]
+        level.split(" ")[0]
+    }
 }
