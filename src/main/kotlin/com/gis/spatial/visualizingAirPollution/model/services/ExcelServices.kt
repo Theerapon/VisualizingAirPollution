@@ -25,24 +25,5 @@ class ExcelServices(
             throw RuntimeException("fail to store excel data: " + e.message)
         }
     }
-
-    fun loadListCountryByPM25(pm25: Double, year: String): ByteArrayInputStream {
-        val airPollutionPM25: List<CountryCityResponse> = airPollutionPM25Repository.findCountryAndCityByPm25InYear(pm25, year)
-        return ExcelHelper.countryPM25sToExcel(airPollutionPM25)
-    }
-
-    fun loadAVG(): ByteArrayInputStream {
-        val avgResponses: List<AvgResponse> = airPollutionPM25Repository.findAVGGroupByCountry()
-        return ExcelHelper.avgResponseToExcel(avgResponses)
-    }
-
-    fun loadHisByCountry(country: String): ByteArrayInputStream {
-        val airPollutionPM25: List<HistoricalResponse> = airPollutionPM25Repository.findHistoricalByCountry(country)
-        return ExcelHelper.hisResponseToExcel(airPollutionPM25)
-    }
-
-    fun loadPop(year: String, color: String): ByteArrayInputStream {
-        val popResponses: List<PopulationResponse> = airPollutionPM25Repository.findTotalPopulationByYearAndColor(year, color)
-        return ExcelHelper.popResponseToExcel(popResponses)
-    }
+    
 }
