@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
 @RestController
-@RequestMapping("/api/report")
+@RequestMapping("/report")
 class ReportController (
     private val excelServices: ExcelServices,
     private val reportServices: ReportServices,
