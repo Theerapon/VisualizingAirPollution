@@ -1,6 +1,6 @@
 package com.gis.spatial.visualizingAirPollution.model.responses
 
-class AvgResponse (private val country: String, private val avgParam: Double){
+class AvgResponse (val country: String, val avgParam: Double){
 
     init {
         country.split(" ")[0]

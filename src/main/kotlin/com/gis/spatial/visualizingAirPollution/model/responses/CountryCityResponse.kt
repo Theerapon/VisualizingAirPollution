@@ -1,6 +1,6 @@
 package com.gis.spatial.visualizingAirPollution.model.responses
 
-class CountryCityResponse(private val country: String, private val city: String){
+class CountryCityResponse(val country: String, val city: String){
 
     init {
         country.split(" ")[0]

@@ -1,6 +1,6 @@
 package com.gis.spatial.visualizingAirPollution.model.responses
 
-class HistoricalResponse (private val country: String, private val year: String, private val pmParam: Double){
+class HistoricalResponse (val country: String, val year: String, val pmParam: Double){
 
     init {
         country.split(" ")[0]
