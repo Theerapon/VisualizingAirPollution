@@ -41,8 +41,8 @@ class ExcelServices(
         return ExcelHelper.hisResponseToExcel(airPollutionPM25)
     }
 
-    fun loadPop(color: String, year: String): ByteArrayInputStream {
-        val popResponses: List<PopulationResponse> = airPollutionPM25Repository.findTotalPopulationByYearAndColor(color, year)
+    fun loadPop(year: String, color: String): ByteArrayInputStream {
+        val popResponses: List<PopulationResponse> = airPollutionPM25Repository.findTotalPopulationByYearAndColor(year, color)
         return ExcelHelper.popResponseToExcel(popResponses)
     }
 }

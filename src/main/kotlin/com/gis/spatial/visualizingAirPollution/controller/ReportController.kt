@@ -5,7 +5,12 @@ import com.gis.spatial.visualizingAirPollution.model.responses.*
 import com.gis.spatial.visualizingAirPollution.model.services.DropDownServices
 import com.gis.spatial.visualizingAirPollution.model.services.ExcelServices
 import com.gis.spatial.visualizingAirPollution.model.services.ReportServices
+import org.springframework.core.io.InputStreamResource
+import org.springframework.core.io.Resource
+import org.springframework.data.repository.query.Param
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -34,9 +39,17 @@ class ReportController (
     }
 
     @GetMapping("/findAvg")
-    fun getListAvg(): ResponseEntity<List<AvgResponse>> {
+    fun getListAvg(
+       @RequestParam country: String
+    ): ResponseEntity<List<AvgResponse>> {
         return try {
-            val airPollutionResponse25: List<AvgResponse> = reportServices.getListAvg()
+            val airPollutionResponse25: List<AvgResponse>
+            if(!country.isEmpty()){
+                airPollutionResponse25 = reportServices.getListAvgByCountry(country)
+            } else {
+                airPollutionResponse25 = reportServices.getListAvg()
+            }
+
             if (airPollutionResponse25.isEmpty())
                 ResponseEntity<List<AvgResponse>>(HttpStatus.NO_CONTENT)
             else ResponseEntity<List<AvgResponse>>(airPollutionResponse25, HttpStatus.OK)
@@ -44,6 +57,7 @@ class ReportController (
             ResponseEntity<List<AvgResponse>>(null, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
+
 
     @GetMapping("/findHistoricalByCountry")
     fun getHistoricalByCountry(
@@ -128,5 +142,53 @@ class ReportController (
         }
         message = "Please upload an excel file!"
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage(message))
+    }
+
+    @GetMapping("/loadFileCountryCity")
+    fun getFileCountryCityByPM (
+        @RequestParam value: String,
+        @RequestParam year: String
+    ): ResponseEntity<Resource> {
+        val filename = "ListOfCountry.xlsx"
+        val file = InputStreamResource(excelServices.loadListCountryByPM25(value.toDouble(), year))
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$filename")
+            .contentType(MediaType.parseMediaType("application/vnd.ms-excel;charset=utf-8"))
+            .body(file)
+    }
+
+    @GetMapping("/loadFileAVG")
+    fun getFileAVG (): ResponseEntity<Resource> {
+        val filename = "ListOfAVG.xlsx"
+        val file = InputStreamResource(excelServices.loadAVG())
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$filename")
+            .contentType(MediaType.parseMediaType("application/vnd.ms-excel;charset=utf-8"))
+            .body(file)
+    }
+
+    @GetMapping("/loadFileHistorical")
+    fun getFileHistorical (
+        @RequestParam country: String
+    ): ResponseEntity<Resource> {
+        val filename = "ListOfHistorical.xlsx"
+        val file = InputStreamResource(excelServices.loadHisByCountry(country))
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$filename")
+            .contentType(MediaType.parseMediaType("application/vnd.ms-excel;charset=utf-8"))
+            .body(file)
+    }
+
+    @GetMapping("/loadFilePopulation")
+    fun getFilePopulation (
+        @RequestParam color: String,
+        @RequestParam year: String
+    ): ResponseEntity<Resource> {
+        val filename = "ListOfPopulation.xlsx"
+        val file = InputStreamResource(excelServices.loadPop(year, color))
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$filename")
+            .contentType(MediaType.parseMediaType("application/vnd.ms-excel;charset=utf-8"))
+            .body(file)
     }
 }

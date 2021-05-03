@@ -20,6 +20,11 @@ class ReportServices(private val airpollutionpm25Repository: AirPollutionPM25Rep
         return airpollutionpm25Repository.findAVGGroupByCountry()
     }
 
+    // 4.2 Calculate the AVG(PM 2.5) by country (show the results in a decreasing order).
+    fun getListAvgByCountry(country: String): List<AvgResponse> {
+        return airpollutionpm25Repository.findAVGByCountry(country)
+    }
+
     // 4.3 Given a <country_input> from the user, show a historical PM 2.5 values by year.
     fun getListHistoricalpm25ByCountry(country: String): List<HistoricalResponse> {
         return airpollutionpm25Repository.findHistoricalByCountry(country)

@@ -22,13 +22,16 @@ interface AirPollutionPM25Repository : JpaRepository<AirPollutionPM25, Int> {
     @Query(value = "SELECT new com.gis.spatial.visualizingAirPollution.model.responses.AvgResponse(a.country, AVG(a.pm25))  FROM AirPollutionPM25 a GROUP BY a.country ORDER BY Avg(a.pm25) DESC")
     fun findAVGGroupByCountry(): MutableList<AvgResponse>
 
+    @Query(value = "SELECT new com.gis.spatial.visualizingAirPollution.model.responses.AvgResponse(a.country, AVG(a.pm25))  FROM AirPollutionPM25 a WHERE a.country = ?1 GROUP BY a.country")
+    fun findAVGByCountry(@Param("country") country: String): MutableList<AvgResponse>
+
     // 4.3 Given a <country_input> from the user, show a historical PM 2.5 values by year.
     @Query(value = "SELECT new com.gis.spatial.visualizingAirPollution.model.responses.HistoricalResponse(a.country, a.year, a.pm25) FROM AirPollutionPM25 a WHERE a.country = ?1  ORDER BY a.year")
     fun findHistoricalByCountry(@Param("country") country: String): MutableList<HistoricalResponse>
 
     // 4.4 Given a <year_input> and an input of <color_pm25> level of health concern
     // from the user, calculate a total of the affected population (in number).
-    @Query(value = "SELECT new com.gis.spatial.visualizingAirPollution.model.responses.PopulationResponse(a.country, a.year, concat(a.color_pm25, ' ',a.conc_pm25), SUM(a.population)) FROM AirPollutionPM25 a WHERE a.year = ?1 AND a.color_pm25 = ?2")
+    @Query(value = "SELECT new com.gis.spatial.visualizingAirPollution.model.responses.PopulationResponse(a.country, a.year, concat(a.color_pm25, ' ',a.conc_pm25), SUM(a.population)) FROM AirPollutionPM25 a WHERE a.year = ?1 AND a.color_pm25 = ?2 GROUP BY a.country, a.year, a.color_pm25, a.conc_pm25, a.population" )
     fun findTotalPopulationByYearAndColor(@Param("year") year: String, @Param("color") color: String): MutableList<PopulationResponse>
 
     // DISTINCT For Year Drop Down
@@ -49,7 +52,7 @@ interface AirPollutionPM25Repository : JpaRepository<AirPollutionPM25, Int> {
     fun findCityByYear(@Param("year") year: String): MutableList<AirPollutionPM25>
 
     // 5.2 Visualize the 50 closest city points to City.
-    @Query(value = "SELECT a FROM AirPollutionPM25 a WHERE a.city != ?1 ORDER BY a.Geom.STDistance(?2)", nativeQuery = true)
+    @Query(value = "SELECT * FROM AirPollutionPM25 a WHERE a.city != ?1 ORDER BY a.Geom.STDistance(?2)", nativeQuery = true)
     fun findCityDistance(@Param("city") city: String, @Param("geom") geom: Geometry): MutableList<AirPollutionPM25>
 
     // find city point for 5.2
