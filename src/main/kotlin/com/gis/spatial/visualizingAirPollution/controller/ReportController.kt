@@ -29,9 +29,8 @@ class ReportController (
         @RequestParam year: String
     ): ResponseEntity<List<CountryCityResponse>> {
         return try {
-            val valueSplit = value.split(" ")[0]
             val yearSplit = value.split(" ")[0]
-            val airPollutionPM25: List<CountryCityResponse> = reportServices.getListOfCountryAndCityByPm25InYear(valueSplit.toDouble(), yearSplit)
+            val airPollutionPM25: List<CountryCityResponse> = reportServices.getListOfCountryAndCityByPm25InYear(value.toDouble(), yearSplit)
             if (airPollutionPM25.isEmpty())
                 ResponseEntity<List<CountryCityResponse>>(HttpStatus.NO_CONTENT)
             else ResponseEntity<List<CountryCityResponse>>(airPollutionPM25, HttpStatus.OK)
