@@ -22,20 +22,23 @@ class VisualizingController (
     fun getCityPoint(
         @RequestParam year: String
     ): List<MarkerResponse> {
-        return visualizingServices.findCityPositionByYear(year)
+        val yearSplit = year.split(" ")[0]
+        return visualizingServices.findCityPositionByYear(yearSplit)
     }
 
     @GetMapping("/findClosetCity")
     fun getClosetCityPosition(
         @RequestParam city: String
     ): List<MarkerResponse> {
-        return visualizingServices.findClosetCityPosition(city)
+        val citySplit = city.split(" ")[0]
+        return visualizingServices.findClosetCityPosition(citySplit)
     }
 
     @GetMapping("/findThailandNeighbor")
     fun getThailandNeighborPositionByYear(
         @RequestParam year: String
     ): List<MarkerResponse> {
+        val yearSplit = year.split(" ")[0]
         return visualizingServices.findThailandNeighborPositionByYear(year)
     }
 
@@ -43,6 +46,7 @@ class VisualizingController (
     fun getMBRPositionByYear(
         @RequestParam year: String
     ): List<Position> {
+        val yearSplit = year.split(" ")[0]
         return visualizingServices.findMBRPositionByYear(year)
     }
 
@@ -50,6 +54,7 @@ class VisualizingController (
     fun getAllHighestCityPointsPositionByYear(
         @RequestParam year: String
     ): List<MarkerResponse> {
+        val yearSplit = year.split(" ")[0]
         return visualizingServices.findAllHighestCityPointsPositionByYear(year)
     }
 
@@ -57,6 +62,7 @@ class VisualizingController (
     fun getCitiesHaveLowIncome(
         @RequestParam year: String
     ): List<MarkerResponse> {
+        val yearSplit = year.split(" ")[0]
         return visualizingServices.findCitiesHaveLowIncome(year)
     }
 

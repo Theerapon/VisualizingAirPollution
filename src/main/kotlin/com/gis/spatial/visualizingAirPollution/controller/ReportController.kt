@@ -29,7 +29,9 @@ class ReportController (
         @RequestParam year: String
     ): ResponseEntity<List<CountryCityResponse>> {
         return try {
-            val airPollutionPM25: List<CountryCityResponse> = reportServices.getListOfCountryAndCityByPm25InYear(value.toDouble(), year)
+            val valueSplit = value.split(" ")[0]
+            val yearSplit = value.split(" ")[0]
+            val airPollutionPM25: List<CountryCityResponse> = reportServices.getListOfCountryAndCityByPm25InYear(valueSplit.toDouble(), yearSplit)
             if (airPollutionPM25.isEmpty())
                 ResponseEntity<List<CountryCityResponse>>(HttpStatus.NO_CONTENT)
             else ResponseEntity<List<CountryCityResponse>>(airPollutionPM25, HttpStatus.OK)
@@ -43,9 +45,10 @@ class ReportController (
        @RequestParam country: String
     ): ResponseEntity<List<AvgResponse>> {
         return try {
+            val countrySplit = country.split(" ")[0]
             val airPollutionResponse25: List<AvgResponse>
-            if(!country.isEmpty()){
-                airPollutionResponse25 = reportServices.getListAvgByCountry(country)
+            if(!countrySplit.isEmpty()){
+                airPollutionResponse25 = reportServices.getListAvgByCountry(countrySplit)
             } else {
                 airPollutionResponse25 = reportServices.getListAvg()
             }
@@ -64,7 +67,8 @@ class ReportController (
         @RequestParam country: String
     ): ResponseEntity<List<HistoricalResponse>> {
         return try {
-            val airPollutionPM25: List<HistoricalResponse> = reportServices.getListHistoricalpm25ByCountry(country)
+            val countrySplit = country.split(" ")[0]
+            val airPollutionPM25: List<HistoricalResponse> = reportServices.getListHistoricalpm25ByCountry(countrySplit)
             if (airPollutionPM25.isEmpty())
                 ResponseEntity<List<HistoricalResponse>>(HttpStatus.NO_CONTENT)
             else ResponseEntity<List<HistoricalResponse>>(airPollutionPM25, HttpStatus.OK)
@@ -79,7 +83,9 @@ class ReportController (
         @RequestParam color: String
     ): ResponseEntity<List<PopulationResponse>> {
         return try {
-            val airPollutionPM25: List<PopulationResponse> = reportServices.getListTotalPopulation(year, color)
+            val yearSplit = year.split(" ")[0]
+            val colorSplit = color.split(" ")[0]
+            val airPollutionPM25: List<PopulationResponse> = reportServices.getListTotalPopulation(yearSplit, colorSplit)
             if (airPollutionPM25.isEmpty())
                 ResponseEntity<List<PopulationResponse>>(HttpStatus.NO_CONTENT)
             else ResponseEntity<List<PopulationResponse>>(airPollutionPM25, HttpStatus.OK)
@@ -149,8 +155,10 @@ class ReportController (
         @RequestParam value: String,
         @RequestParam year: String
     ): ResponseEntity<Resource> {
+        val valueSplit = value.split(" ")[0]
+        val yearSplit = year.split(" ")[0]
         val filename = "ListOfCountry.xlsx"
-        val file = InputStreamResource(excelServices.loadListCountryByPM25(value.toDouble(), year))
+        val file = InputStreamResource(excelServices.loadListCountryByPM25(valueSplit.toDouble(), yearSplit))
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$filename")
             .contentType(MediaType.parseMediaType("application/vnd.ms-excel;charset=utf-8"))
@@ -171,8 +179,9 @@ class ReportController (
     fun getFileHistorical (
         @RequestParam country: String
     ): ResponseEntity<Resource> {
+        val countrySplit = country.split(" ")[0]
         val filename = "ListOfHistorical.xlsx"
-        val file = InputStreamResource(excelServices.loadHisByCountry(country))
+        val file = InputStreamResource(excelServices.loadHisByCountry(countrySplit))
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$filename")
             .contentType(MediaType.parseMediaType("application/vnd.ms-excel;charset=utf-8"))
@@ -184,8 +193,10 @@ class ReportController (
         @RequestParam color: String,
         @RequestParam year: String
     ): ResponseEntity<Resource> {
+        val colorSplit = color.split(" ")[0]
+        val yearSplit = year.split(" ")[0]
         val filename = "ListOfPopulation.xlsx"
-        val file = InputStreamResource(excelServices.loadPop(year, color))
+        val file = InputStreamResource(excelServices.loadPop(yearSplit, colorSplit))
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$filename")
             .contentType(MediaType.parseMediaType("application/vnd.ms-excel;charset=utf-8"))
