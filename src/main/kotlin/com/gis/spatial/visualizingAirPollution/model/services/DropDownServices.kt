@@ -10,17 +10,29 @@ class DropDownServices(
 ) {
     // DISTINCT For Year Drop Down
     fun getDistinctYear(): List<String> {
-        return airpollutionpm25Repository.distinctYear()
+        val split =  airpollutionpm25Repository.distinctYear()
+        for (str in split){
+            str.split(" ")[0]
+        }
+        return split
     }
 
     // DISTINCT For Country Drop Down
     fun getDistinctCountry(): List<String> {
-        return airpollutionpm25Repository.distinctCountry()
+        val split =  airpollutionpm25Repository.distinctCountry()
+        for (str in split){
+            str.split(" ")[0]
+        }
+        return split
     }
 
     // DISTINCT For Level Color PM 2.5 Drop Down
     fun getDistinctColor(): List<String> {
-        return airpollutionpm25Repository.distinctColor()
+        val split =  airpollutionpm25Repository.distinctColor()
+        for (str in split){
+            str.split(" ")[0]
+        }
+        return split
     }
 
 }

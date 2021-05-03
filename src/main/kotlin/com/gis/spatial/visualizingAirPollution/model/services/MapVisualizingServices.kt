@@ -42,6 +42,10 @@ class MapVisualizingServices(
         var neighborName = arrayListOf<String>()
         worldRepository.findListNeighbor(thaiGeom.geom!!).map { model -> neighborName.add(model.name!!) }
 
+        for (str in neighborName){
+            str.split(" ")[0]
+        }
+
         //find Position (lat, long) city each country neighbor on year
         return airpollutionpm25Repository
             .findCitiesInCountiesOnYear(neighborName, year)
@@ -69,6 +73,9 @@ class MapVisualizingServices(
 
         //list of countries have the most count of cities on year
         var countriesList = airpollutionpm25Repository.findCountriesHaveMostCitiesInYear(year)
+        for (str in countriesList){
+            str.split(" ")[0]
+        }
 
         //find all cities in First Country that have the most count of cities on year
         var cities = airpollutionpm25Repository.findCitiesInCountiesOnYear(arrayListOf(countriesList.first()), year)
