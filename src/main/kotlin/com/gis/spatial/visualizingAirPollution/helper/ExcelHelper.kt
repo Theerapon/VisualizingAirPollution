@@ -7,6 +7,7 @@ import com.gis.spatial.visualizingAirPollution.model.responses.HistoricalRespons
 import com.gis.spatial.visualizingAirPollution.model.responses.PopulationResponse
 import com.vividsolutions.jts.geom.Coordinate
 import com.vividsolutions.jts.geom.GeometryFactory
+import com.vividsolutions.jts.geom.PrecisionModel
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
@@ -71,13 +72,13 @@ class ExcelHelper {
                         cellIdx++
                     }
                     airPollutionPM25.id = currentRow.rowNum
-                    airPollutionPM25.geom = GeometryFactory().createPoint(
+                    //airPollutionPM25.geom = null
+                    airPollutionPM25.geom = GeometryFactory(PrecisionModel(), 4326).createPoint(
                         Coordinate(
                             airPollutionPM25.longitude!!.toDouble(),
                             airPollutionPM25.latitude!!.toDouble()
                         )
                     )
-                    print(airPollutionPM25.geom!!.srid)
                     airPollutionPM25s.add(airPollutionPM25)
                 }
                 workbook.close()
